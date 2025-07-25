@@ -1,5 +1,5 @@
 # DSCommerce RestAssured
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/MarcusViniciusGodoy//blob/main/LICENSE)
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/MarcusViniciusGodoy/DSCommerce-restassured/blob/main/LICENSE)
 
 # Sobre o projeto
 
