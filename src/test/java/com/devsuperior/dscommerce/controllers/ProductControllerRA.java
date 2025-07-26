@@ -30,4 +30,11 @@ public class ProductControllerRA {
                 .body("categories.id", hasItems(2,3))
                 .body("categories.name", hasItems("Eletrônicos","Computadores"));
     }
+
+    @Test
+    public void findAllShouldReturnPageProductsWhenProductNameIsEmpty(){
+
+        given().get("/products?page=0").then().statusCode(200)
+                .body("content.name", hasItems("Macbook Pro", "PC Gamer Tera"));
+    }
 }
