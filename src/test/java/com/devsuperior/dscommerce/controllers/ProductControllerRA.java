@@ -3,6 +3,11 @@ package com.devsuperior.dscommerce.controllers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -12,12 +17,33 @@ public class ProductControllerRA {
     private Long existingProductId, nonExistingProductId;
     private String productName;
 
+    private Map<String, Object> postProductInstance;
+
     @BeforeEach
     public void setUp(){
 
         baseURI = "http://localhost:8080";
 
         productName = "Macbook";
+
+        postProductInstance = new HashMap<>();
+        postProductInstance.put("name", "Meu produto");
+        postProductInstance.put("description", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        postProductInstance.put("imgUrl", "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg");
+        postProductInstance.put("price", 50.0);
+
+        List<Map<String, Object>> categories = new ArrayList<>();
+
+        Map<String, Object> category1 = new HashMap<>();
+        category1.put("id", 2);
+
+        Map<String, Object> category2 = new HashMap<>();
+        category2.put("id", 3);
+
+        categories.add(category1);
+        categories.add(category2);
+
+        postProductInstance.put("categories", categories);
     }
 
     @Test
@@ -56,5 +82,11 @@ public class ProductControllerRA {
 
         given().get("/products?size=25").then().statusCode(200)
                 .body("content.findAll { it.price > 2000 }.name", hasItems("Smart TV", "PC Gamer Weed"));
+    }
+
+    @Test
+    public void insertShouldReturnProductCreatedWhenAdminLogged(){
+
+
     }
 }
