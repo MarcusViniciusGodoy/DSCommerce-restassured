@@ -1,5 +1,7 @@
 package com.devsuperior.dscommerce.controllers;
 
+import io.restassured.http.ContentType;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -87,6 +89,15 @@ public class ProductControllerRA {
     @Test
     public void insertShouldReturnProductCreatedWhenAdminLogged(){
 
+        JSONObject newProduct = new JSONObject(postProductInstance);
+
+        given().header("Content-type", "application/json").header("Authorization", "Bearer " + adminToken)
+                .body(newProduct).contentType(ContentType.JSON).accept(ContentType.JSON)
+                .when().post("/products").then().statusCode(201)
+                .body("name", equalTo("Meu produto"))
+                .body("price", is(50.0F))
+                .body("imgUrl", equalTo("https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg"))
+                .body("categories", hasItems(2,3));
 
     }
 }
