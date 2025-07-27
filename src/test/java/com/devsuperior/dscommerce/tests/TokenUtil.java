@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.*;
 
 public class TokenUtil {
 
-    private static String obtainAccessToken(String username, String password){
+    public static String obtainAccessToken(String username, String password){
         Response response = authRequest(username, password);
         JsonPath jsonBody = response.jsonPath();
         return jsonBody.getString("access_token");
